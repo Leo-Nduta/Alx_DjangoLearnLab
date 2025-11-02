@@ -1,4 +1,5 @@
 *Code used to delete objects in Django Shell:*
+from bookshelf.models import Book
 
 Error code:
 book = Book.objects.get(title="Nineteen Eighty-Four")
