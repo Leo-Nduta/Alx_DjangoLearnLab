@@ -1,10 +1,11 @@
 from django.urls import path
 from .views import (
-    list_books, LibraryDetailView,
+    LibraryDetailView,
     register, login_user, logout_user,
     admin_view, librarian_view, member_view,
     add_book, edit_book, delete_book
 )
+from .views import list_books
 
 urlpatterns = [
     path('books/', list_books, name='list_books'),
