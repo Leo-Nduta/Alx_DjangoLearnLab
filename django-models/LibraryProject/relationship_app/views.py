@@ -7,6 +7,7 @@ def list_books(request):
     books = Book.objects.all()
     return render(request, "relationship_app/list_books.html")
 
+from .models import Library
 class DetailView(View):
     def get(self, **kwargs):
         library = Library.objects.get(id=kwargs['library_id'])
