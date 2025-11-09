@@ -1,0 +1,6 @@
+<h1>Librarian Dashboard</h1>
+<p>Welcome, {{ user.username }}! You can manage the books in your library.</p>
+<ul>
+    <li><a href="{% url 'add_book' %}">Add Book to Library</a></li>
+    <li><a href="{% url 'list_books' %}">View Books</a></li>
+</ul>

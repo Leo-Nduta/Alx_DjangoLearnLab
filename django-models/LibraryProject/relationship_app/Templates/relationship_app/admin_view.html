@@ -1,0 +1,8 @@
+<h1>Admin Dashboard</h1>
+<p>Welcome, {{ user.username }}! You can manage all books, libraries, and users here.</p>
+<ul>
+    <li><a href="{% url 'add_book' %}">Add Book</a></li>
+    <li><a href="{% url 'edit_book' book_id=1 %}">Edit Book</a></li>
+    <li><a href="{% url 'delete_book' book_id=1 %}">Delete Book</a></li>
+    <li><a href="{% url 'list_books' %}">View Books</a></li>
+</ul>
