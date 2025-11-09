@@ -1,4 +1,5 @@
 <!-- library_detail.html -->
+{% load static %}
 <h1>Library: {{ library.name }}</h1>
 <ul>
     {% for book in library.books.all %}
