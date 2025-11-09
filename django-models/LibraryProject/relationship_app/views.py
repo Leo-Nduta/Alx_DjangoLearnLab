@@ -49,8 +49,8 @@ def logout_user(request):
 from django.contrib.auth.decorators import user_passes_test, login_required
 
 # Helper functions to check roles
-def admin_check(user):
-    return user.userprofile.role == "Admin"
+def is_admin(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
 
 def librarian_check(user):
     return user.userprofile.role == "Librarian"
@@ -60,7 +60,7 @@ def member_check(user):
 
 
 @login_required
-@user_passes_test(admin_check)
+@user_passes_test(is_admin)
 def admin_view(request):
     return render(request, 'relationship_app/admin_view.html')
 
