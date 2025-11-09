@@ -10,5 +10,5 @@ def list_books(request):
 class DetailView(View):
     def get(self, **kwargs):
         library = Library.objects.get(id=kwargs['library_id'])
-        return render('library_detail.html', {'library': library, 'books': library.books.all()})
+        return render("relationship_app/library_detail.html")
 
