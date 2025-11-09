@@ -10,6 +10,9 @@ def list_books(request):
 from .models import Library
 from django.views.generic.detail import DetailView
 class LibraryDetailView(View):
+    model = Library
+    template_name = "relationship_app/library_detail.html"
+    context_object_name = "library"
     def get(self, request, **kwargs):
         library = Library.objects.get(id=kwargs['library_id'])
         return render(request, "relationship_app/library_detail.html", {"library": library})
