@@ -14,3 +14,10 @@ class LibraryDetailView(View):
         library = Library.objects.get(id=kwargs['library_id'])
         return render("relationship_app/library_detail.html")
 
+
+def list_books(request):
+    return render(request, 'relationship_app/list_books.html')
+
+def library_detail(request):
+    return render(request, 'relationship_app/library_detail.html')
+
