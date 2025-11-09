@@ -11,4 +11,5 @@ def books_by_author(author_name):
 
 def librarian_of_library(library_name):
         library = Library.objects.get(name=library_name)
+        Librarian.objects.get(library=library)
         return library.librarian
