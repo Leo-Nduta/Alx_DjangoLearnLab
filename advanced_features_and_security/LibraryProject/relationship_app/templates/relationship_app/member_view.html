@@ -1,0 +1,6 @@
+<h1>Member Dashboard</h1>
+<p>Welcome, {{ user.username }}! You can browse available books.</p>
+<ul>
+    <li><a href="{% url 'list_books' %}">View All Books</a></li>
+    <li><a href="{% url 'library_detail' pk=1 %}">View Library Details</a></li>
+</ul>
