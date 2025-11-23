@@ -5,7 +5,7 @@ class BookshelfConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'bookshelf'
 
-from django.contrib.auth.models import Group, Permission
+#from django.contrib.auth.models import Group, Permission
 from django.db.models.signals import post_migrate
 
 class RelationshipAppConfig(AppConfig):
