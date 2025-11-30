@@ -39,3 +39,58 @@ title
 publication_year
 
 author name
+
+
+TASK 2
+📘 Advanced Query Capabilities for Book API
+
+The BookListView supports:
+
+✅ Filtering
+
+You can filter books using any of the fields:
+
+title
+
+publication_year
+
+author (by id)
+
+Examples:
+
+/books/?title=Inferno
+/books/?author=2
+/books/?publication_year=2020
+
+🔍 Searching
+
+Searches through:
+
+title
+
+author name
+
+Examples:
+
+/books/?search=python
+/books/?search=rowling
+
+🧭 Ordering
+
+Sort results using:
+
+title
+
+publication_year
+
+author
+
+Examples:
+
+/books/?ordering=title
+/books/?ordering=-publication_year
+
+🧪 Combined Example
+/books/?search=django&publication_year=2023&ordering=-title
+
+⚙️ Filters Enabled Through DRF
