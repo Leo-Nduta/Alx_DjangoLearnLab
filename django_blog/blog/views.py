@@ -187,3 +187,8 @@ def search_posts(request):
         ).distinct()
 
     return render(request, 'search_results.html', {'query': query, 'results': results})
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = "post_list_by_tag.html"  # template to render filtered posts
+    context_object_name = "posts"
