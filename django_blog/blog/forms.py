@@ -13,9 +13,17 @@ from django import forms
 from .models import Post, Comment
 
 class PostForm(forms.ModelForm):
+    new_tags = forms.CharField(
+        required=False,
+        help_text="Enter new tags separated by commas",
+        widget=forms.TextInput(attrs={'placeholder': 'e.g. Django, Python'})
+    )
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags'] 
+        widgets = {
+            'tags': forms.CheckboxSelectMultiple(),
+        }
 
 class CommentForm(forms.ModelForm):
     class Meta:
