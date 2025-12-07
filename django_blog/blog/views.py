@@ -105,7 +105,7 @@ def update_post(request, pk):
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
-from .models import Post
+from .models import Post, Comment
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -130,14 +130,46 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
-from django.views.generic import ListView
-
 class PostListView(ListView):
     model = Post
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
-from django.views.generic import DetailView
-
 class PostDetailView(DetailView):
     model = Post
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']   # author is set automatically
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    fields = ['title', 'content']
+class CommentListView(ListView):
+    model = Comment
+    context_object_name = 'comments'
+    ordering = ['-date_posted']
+
+class CommentDetailView(DetailView):
+    model = Comment
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    fields = ['content']   # author is set automatically
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    success_url = '/'
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author  
