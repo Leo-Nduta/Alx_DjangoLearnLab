@@ -1,18 +1,38 @@
-<h2>Profile</h2>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+<div class="container">
+    <h2>Profile</h2>
 
-{% if message %}
-    <p style="color:green;">{{ message }}</p>
-{% endif %}
+    {% if message %}
+        <p class="success">{{ message }}</p>
+    {% endif %}
 
-<form method="post">
-    % csrf_token %}
-    <label>Username:</label>
-    <input type="text" value="{{ request.user.username }}" disabled><br><br>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Username:</label>
+        <input type="text" value="{{ request.user.username }}" disabled>
 
-    <label>Email:</label>
-    <input type="email" name="email" value="{{ request.user.email }}"><br><br>
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ request.user.email }}">
 
-    <button type="submit">Update Profile</button>
-</form>
+        {% if profile %}
+            <label>Bio:</label>
+            <textarea name="bio">{{ profile.bio }}</textarea>
 
-<a href="{% url 'logout' %}">Logout</a>
+            <label>Profile Picture:</label>
+            <input type="file" name="profile_pic">
+        {% endif %}
+
+        <button type="submit">Update Profile</button>
+    </form>
+
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+</body>
+</html>
