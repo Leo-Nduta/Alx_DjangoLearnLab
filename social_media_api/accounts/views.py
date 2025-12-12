@@ -38,7 +38,7 @@ class LoginView(APIView):
         return Response(serializer.errors, status=400)
 
 
-class FollowView(generic.GenericAPIView):
+class FollowView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]  
     def post(self, request, user_id):
         follower = request.user

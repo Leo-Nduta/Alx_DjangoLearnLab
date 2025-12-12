@@ -2,9 +2,9 @@ from django.urls import path, include
 from .views import FeedView
 
 urlpatterns = [
-path('', include(router.urls)),
-path('api', include('posts.urls')),
-path('feed/', FeedView.as_view(), name='feed'),
+    path('', include(router.urls)),
+    path('api', include('posts.urls')),
+    path('feed/', FeedView.as_view(), name='feed'),
 ]
 
 
