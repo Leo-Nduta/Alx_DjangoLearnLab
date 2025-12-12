@@ -1,28 +1,35 @@
 from django.shortcuts import render
 from .models import Post, Comment
+from rest_framework import permissions
+from .permissions import IsAuthorOrReadOnly
 
 # Create your views here.
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
 class PostCreateView(CreateView):
     model = Post
     template_name = "post_create.html"
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 class PostUpdateView(UpdateView):
     model = Post
     template_name = "post_update.html"
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 class PostDeleteView(DeleteView):
     model = Post
     template_name = "post_delete.html"
     success_url = '/'
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 
 class CommentListView(ListView):
     model = Comment
     template_name = 'comment_list.html'
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
 class CommentDetailView(DetailView):
     model = Comment
     template_name = 'comment_detailview.html'
@@ -36,3 +43,4 @@ class CommentDeleteView(DeleteView):
     model = Comment
     template_name = 'comment_deleteview.html'
     success_url = '/'
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]    
