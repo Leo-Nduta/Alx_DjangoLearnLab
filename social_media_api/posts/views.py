@@ -32,14 +32,10 @@ class FeedView(APIView):
         return Response(serializer.data)
     
     def post(self, request, pk):
-        # REQUIRED by checker
         post = generics.get_object_or_404(Post, pk=pk)
-
-        # REQUIRED by checker
-        like, created = Like.objects.get_or_create(user=request.user,post=post)
+        created = Like.objects.get_or_create(user=request.user,post=post)
 
         if created:
-            # REQUIRED by checker
             Notification.objects.create(user=post.author,message=f"{request.user.username} liked your post.")
             return Response({"message": "Liked"})
         else:
