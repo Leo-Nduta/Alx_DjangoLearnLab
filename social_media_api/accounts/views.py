@@ -54,3 +54,13 @@ class FollowView(generics.GenericAPIView):
                 return Response({"status": f"You have unfollowed {following_user.username}."})
         except CustomUser.DoesNotExist:
             return Response({"error": "User does not exist."}, status=404)
+    if created:  # user started following
+        if following_user != request.user:
+            Notification.objects.create(
+                user=following_user,
+                message=f"{request.user.username} started following you.")
+    if post.author != request.user:
+        Notification.objects.create(
+            user=post.author,
+            message=f"{request.user.username} liked your post."
+    )
