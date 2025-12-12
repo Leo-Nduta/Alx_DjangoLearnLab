@@ -33,10 +33,11 @@ class FeedView(APIView):
     
     def post(self, request, pk):
         post = generics.get_object_or_404(Post, pk=pk)
-        created = Like.objects.get_or_create(user=request.user,post=post)
+        
+        like, created = Like.objects.get_or_create(user=request.user,post=post)
 
         if created:
-            Notification.objects.create(user=post.author,message=f"{request.user.username} liked your post.")
+            Notification.objects.create(user=post.author, message=f"{request.user} liked your post.")
             return Response({"message": "Liked"})
         else:
             return Response({"message": "Already liked"}, status=400)
