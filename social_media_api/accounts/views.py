@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from .models import CustomUser
+from rest_framework import permissions, generics
 
 # Create your views here.
 class RegisterView(APIView):
@@ -37,11 +38,12 @@ class LoginView(APIView):
         return Response(serializer.errors, status=400)
 
 
-class FollowView(APIView):
+class FollowView(generic.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]  
     def post(self, request, user_id):
         follower = request.user
         try:
-            following_user = CustomUser.objects.get(id=user_id)
+            following_user = CustomUser.objects.all().get(id=user_id)
             if follower == following_user:
                 return Response({"error": "You cannot follow yourself."}, status=400)
             follow_relation, created = following.objects.get_or_create(user=follower, following_user=following_user)
