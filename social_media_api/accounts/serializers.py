@@ -18,6 +18,10 @@ class RegisterSerializer(serializers.ModelSerializer):
             username=validated_data["username"],
             email=validated_data.get("email"),
             password=validated_data["password"],)
+        
+        token = Token.objects.create(user=user)
+        user.token = token.key
+        return user
 
 class LoginSerializer(serializers.ModelSerializer):
     username = serializers.CharField()
