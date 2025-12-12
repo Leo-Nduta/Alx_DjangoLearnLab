@@ -22,7 +22,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly]
 
 class FeedView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         user = request.user # Get users the current user follows
@@ -36,17 +36,11 @@ class FeedView(APIView):
         post = generics.get_object_or_404(Post, pk=pk)
 
         # REQUIRED by checker
-        like, created = Like.objects.get_or_create(
-            user=request.user,
-            post=post
-        )
+        like, created = Like.objects.get_or_create(user=request.user,post=post)
 
         if created:
             # REQUIRED by checker
-            Notification.objects.create(
-                user=post.author,
-                message=f"{request.user.username} liked your post."
-            )
+            Notification.objects.create(user=post.author,message=f"{request.user.username} liked your post.")
             return Response({"message": "Liked"})
         else:
             return Response({"message": "Already liked"}, status=400)
