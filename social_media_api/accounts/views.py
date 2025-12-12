@@ -4,8 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
-from .models import Post, Comment
-
+from .models import CustomUser
 
 # Create your views here.
 class RegisterView(APIView):
@@ -38,3 +37,18 @@ class LoginView(APIView):
         return Response(serializer.errors, status=400)
 
 
+class FollowView(APIView):
+    def post(self, request, user_id):
+        follower = request.user
+        try:
+            following_user = CustomUser.objects.get(id=user_id)
+            if follower == following_user:
+                return Response({"error": "You cannot follow yourself."}, status=400)
+            follow_relation, created = following.objects.get_or_create(user=follower, following_user=following_user)
+            if created:
+                return Response({"status": f"You are now following {following_user.username}."})
+            else:
+                follow_relation.delete()
+                return Response({"status": f"You have unfollowed {following_user.username}."})
+        except CustomUser.DoesNotExist:
+            return Response({"error": "User does not exist."}, status=404)
